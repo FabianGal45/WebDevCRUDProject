@@ -10,6 +10,10 @@ var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
 var servicesRouter = require('./routes/services');
 
+// Tomas
+var staffRouter = require('./routes/staff');
+var addStoreRouter = require('./routes/addStore');
+
 var app = express();
 
 // view engine setup
@@ -29,6 +33,9 @@ app.use('/products', productsRouter);
 app.use('/services', servicesRouter);
 
 // Tomas
+app.use('/staff', staffRouter);
+app.use('/addStore', addStoreRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

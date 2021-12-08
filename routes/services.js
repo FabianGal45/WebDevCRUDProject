@@ -1,15 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var MySql = require('sync-mysql');
+var connection_details = require("../modules/connection_details")
 
 //get = show data
 router.get('/', function(req, res, next) {
   var error = req.query.error 
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
   var services = connection.query('SELECT * FROM services;');
   res.render('services', {
@@ -39,10 +40,10 @@ router.post('/add', function(req, res, next){
   var productID = req.body.productID;
   var serviceDescription = req.body.serviceDescription;
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
 
   //checks to see if the ID already exists and throws an error if it does.
@@ -63,10 +64,10 @@ router.post('/add', function(req, res, next){
 
 router.post('/delete', function(req, res, next){
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
   
   var delete_id = req.body.serviceID;//takes the staff_id from the html file
@@ -82,10 +83,10 @@ router.post('/update', function(req, res, next){
   var productID = req.body.productID;
   var serviceDescription = req.body.serviceDescription;
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
   
   var query_string = "UPDATE services set"

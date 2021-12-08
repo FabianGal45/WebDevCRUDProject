@@ -1,15 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var MySql = require('sync-mysql');
+var connection_details = require("../modules/connection_details")
 
 //get = show data
 router.get('/', function(req, res, next) {
   var error = req.query.error 
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
   var products = connection.query('SELECT * FROM products;');
   res.render('products', {
@@ -40,10 +41,10 @@ router.post('/add', function(req, res, next){
   var itemDescription = req.body.item_description;
   var itemPrice = req.body.item_price;
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
 
   //checks to see if the ID already exists and throws an error if it does.
@@ -64,10 +65,10 @@ router.post('/add', function(req, res, next){
 
 router.post('/delete', function(req, res, next){
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
   
   var delete_id = req.body.prduct_id;//takes the staff_id from the html file
@@ -84,10 +85,10 @@ router.post('/update', function(req, res, next){
   var itemDescription = req.body.item_description;
   var itemPrice = req.body.item_price;
   var connection = new MySql({
-    host: 'localhost',
-    user: 'root',
-    password: 'passwordformysql',
-    database: 'pc_world'
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
   });
   
   var query_string = "UPDATE products set"
