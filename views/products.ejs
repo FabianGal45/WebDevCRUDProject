@@ -12,7 +12,7 @@
     <!-- Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">PC World</a>
+        <a class="navbar-brand" href="/" class="text-center">PC World</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,7 +27,7 @@
       </div>
     </nav>
 
-    <h1><%= title %></h1>
+    <h1 class="text-center main-title"><%= title %></h1>
 
     <div class="cell container">
       <div class="cell-ttle">
@@ -43,27 +43,23 @@
           <div class="row">
             <div class="col-lg-10 col-md-12">
               <div class="row">
-                <div class="col-lg-2 col-md-12">
-                  <label for="item_id" class="form-label">ID: </label>
-                  <input type="number" name="item_id" class="form-control"/>
-                </div>
-                <div class="col-lg-2 col-md-12">
+                <div class="col-lg col-md-12">
                   <label for="item_name" class="form-label">Name: </label>
                   <input type="text" name="item_name"  class="form-control" required/>
                 </div>
-                <div class="col-lg-2 col-md-12">
+                <div class="col-lg col-md-12">
                   <label for="item_category" class="form-label">Category: </label>
                   <input type="text" name="item_category"  class="form-control" required/>
                 </div>
-                <div class="col-lg-2 col-md-12">
+                <div class="col-lg col-md-12">
                   <label for="item_stock" class="form-label">Available stock: </label>
                   <input type="number" name="item_stock"  class="form-control" required/>
                 </div>
-                <div class="col-lg-2 col-md-12">
+                <div class="col-lg col-md-12">
                   <label for="item_description" class="form-label">Description: </label>
                   <input type="text" name="item_description"  class="form-control" required/>
                 </div>
-                <div class="col-lg-2 col-md-12">
+                <div class="col-lg col-md-12">
                   <label for="item_price" class="form-label">Price per unit: </label>
                   <input type="number" step="0.01" name="item_price"  class="form-control" required/>
                 </div> 
@@ -85,8 +81,8 @@
         </div>
         <div class="cell-content container">
           <div class="row">
-            <div class="col">
-              <table>
+            <div class="col-lg-10">
+              <table class="table table-borderless">
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
@@ -105,14 +101,14 @@
                 </tr>
               </table>
             </div>
-            <div class="col">
+            <div class="col-lg-2 d-grid gap-2 d-md-flex justify-content-md-end align-self-center">
               <form method="post" action="/products/delete">
                 <input type="hidden" value="<%= products[i].itemID  %> " name="prduct_id">
-                <button type="submit">Delete</button>
+                <button type="submit" class="btn btn-dark">Delete</button>
               </form>
               <form action="/products/update" method="get">
                 <input type="hidden" value="<%= products[i].itemID  %> " name="product_id">
-                <button type="submit">Update</button>
+                <button type="submit" class="btn btn-dark">Update</button>
               </form>
             </div>
           </div>
