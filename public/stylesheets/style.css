@@ -1,6 +1,6 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+  background-color: #fdfdfd;
 }
 
 a {
@@ -10,6 +10,13 @@ a {
 .everythingToCenter{
   margin: 0 auto;
 }
+
 nav{
-  margin-bottom: 200px;
-}
+  margin-bottom: 20px;
+} 
+
+.cell{
+  background-color: white; 
+  border-radius: 20px;
+  box-shadow: 0px 1px 9px #959595;
+} 
