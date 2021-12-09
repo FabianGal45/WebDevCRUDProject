@@ -50,9 +50,7 @@ router.post('/add', function(req, res, next){
   //checks to see if the ID already exists and throws an error if it does.
   var products = connection.query('SELECT * FROM products;');
   for(var i=0; i < products.length; i++){
-    console.log(products[i].itemID + " " +itemID);
     if(itemID == products[i].itemID){
-      console.log("THERE IS A MATCH!!! "+ products[i].itemID)
       res.redirect("/products/?&error=You cannot use the same ID")
     } 
   }
@@ -143,9 +141,7 @@ router.post('/update', function(req, res, next){
   //checks to see if the ID already exists and throws an error if it does.
   var products = connection.query('SELECT * FROM products;');
   for(var i=0; i < products.length; i++){
-    console.log(products[i].itemID + " " +newProductID);
     if(newProductID == products[i].itemID){
-      console.log("THERE IS A MATCH!!! "+ products[i].itemID)
       res.redirect("/products/update?product_id=" + product_id + "&error=You cannot use the same ID")
     } 
   }
