@@ -28,8 +28,6 @@
     </nav>
 
     <h1><%= title %></h1>
-    
-
 
     <div class="cell container">
       <div class="cell-ttle">
@@ -43,61 +41,83 @@
         <% } %>
         <form class="" action="/products/add" method="post">
           <div class="row">
-            <div class="col">  
-              <label for="item_id" class="inputID">ID: </label>
-              <input type="number" name="item_id"/>
-    
-              <label for="item_name">Name: </label>
-              <input type="text" name="item_name" required/>
-    
-              <label for="item_category">Category: </label>
-              <input type="text" name="item_category" required/>
-    
-              <label for="item_stock">Available stock: </label>
-              <input type="number" name="item_stock" required/>
-    
-              <label for="item_description">Description: </label>
-              <input type="text" name="item_description" required/>
-    
-              <label for="item_price">Price per unit: </label>
-              <input type="number" step="0.01" name="item_price" required/>
+            <div class="col-lg-10 col-md-12">
+              <div class="row">
+                <div class="col-lg-2 col-md-12">
+                  <label for="item_id" class="form-label">ID: </label>
+                  <input type="number" name="item_id" class="form-control"/>
+                </div>
+                <div class="col-lg-2 col-md-12">
+                  <label for="item_name" class="form-label">Name: </label>
+                  <input type="text" name="item_name"  class="form-control" required/>
+                </div>
+                <div class="col-lg-2 col-md-12">
+                  <label for="item_category" class="form-label">Category: </label>
+                  <input type="text" name="item_category"  class="form-control" required/>
+                </div>
+                <div class="col-lg-2 col-md-12">
+                  <label for="item_stock" class="form-label">Available stock: </label>
+                  <input type="number" name="item_stock"  class="form-control" required/>
+                </div>
+                <div class="col-lg-2 col-md-12">
+                  <label for="item_description" class="form-label">Description: </label>
+                  <input type="text" name="item_description"  class="form-control" required/>
+                </div>
+                <div class="col-lg-2 col-md-12">
+                  <label for="item_price" class="form-label">Price per unit: </label>
+                  <input type="number" step="0.01" name="item_price"  class="form-control" required/>
+                </div> 
+              </div>  
             </div>
-            <div class="col">
-              <button type="submit" name="button">Submit</button>
+            <div class="col-lg-2 col-md-12 add-cell-button text-center align-self-end">
+              <button type="submit" name="button" class="btn btn-dark">Add staff</button>
             </div>
           </div>
         </form>
       </div>
-    </div> 
-    <% for( var i = 0; i < products.length; i++ ) { %>
-      <br>
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>stock</th>
-          <th>Descripotion</th>
-          <th>Price</th>
-        </tr>
-        <tr>
-          <td><%= products[i].itemID %></td>
-          <td><%= products[i].itemName %></td>
-          <td><%= products[i].category %></td>
-          <td><%= products[i].stock %></td>
-          <td><%= products[i].itemDescription %></td>
-          <td><%= products[i].price %></td>
-        </tr>
-      </table>
-      <form method="post" action="/products/delete">
-        <input type="hidden" value="<%= products[i].itemID  %> " name="prduct_id">
-        <button type="submit">Delete</button>
-      </form>
-      <form action="/products/update" method="get">
-        <input type="hidden" value="<%= products[i].itemID  %> " name="product_id">
-        <button type="submit">Update</button>
+    </div>
 
-      </form>
+    <!-- Items will be displayed in here -->
+    <% for( var i = 0; i < products.length; i++ ) { %>
+      <div class="cell container">
+        <div class="cell-ttle">
+          <!-- <h5 class="text-center">Add a product to the list</h5> -->
+        </div>
+        <div class="cell-content container">
+          <div class="row">
+            <div class="col">
+              <table>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>stock</th>
+                  <th>Descripotion</th>
+                  <th>Price</th>
+                </tr>
+                <tr>
+                  <td><%= products[i].itemID %></td>
+                  <td><%= products[i].itemName %></td>
+                  <td><%= products[i].category %></td>
+                  <td><%= products[i].stock %></td>
+                  <td><%= products[i].itemDescription %></td>
+                  <td><%= products[i].price %></td>
+                </tr>
+              </table>
+            </div>
+            <div class="col">
+              <form method="post" action="/products/delete">
+                <input type="hidden" value="<%= products[i].itemID  %> " name="prduct_id">
+                <button type="submit">Delete</button>
+              </form>
+              <form action="/products/update" method="get">
+                <input type="hidden" value="<%= products[i].itemID  %> " name="product_id">
+                <button type="submit">Update</button>
+              </form>
+            </div>
+          </div>
+        </div>  
+      </div> 
     <% } %>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

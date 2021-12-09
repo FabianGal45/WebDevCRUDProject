@@ -49,9 +49,7 @@ router.post('/add', function(req, res, next){
   //checks to see if the ID already exists and throws an error if it does.
   var services = connection.query('SELECT * FROM services;');
   for(var i=0; i < services.length; i++){
-    console.log(services[i].serviceID + " " +serviceID);
     if(serviceID == services[i].serviceID){
-      console.log("THERE IS A MATCH!!! "+ services[i].serviceID)
       res.redirect("/services/?&error=You cannot use the same ID")
     } 
   }
@@ -134,14 +132,10 @@ router.post('/update', function(req, res, next){
   //checks to see if the ID already exists and throws an error if it does.
   var services = connection.query('SELECT * FROM services;');
   for(var i=0; i < services.length; i++){
-    console.log(services[i].serviceID + " " +newServiceID);
     if(newServiceID == services[i].serviceID){
-      console.log("THERE IS A MATCH!!! "+ services[i].serviceID)
       res.redirect("/services/update?serviceID=" + serviceID + "&error=You cannot use the same ID")
     } 
   }
-
-  
 
   console.log(">>> Query "+ query_string);
   console.log(">>> Params "+ params)
