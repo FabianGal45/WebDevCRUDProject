@@ -1,12 +1,12 @@
 
-# CA2 Pc World Project
+# Administrative Data
 BSc (Honours) in Computing
 Student 1: Tomas Kehoe
 Student Number:x20382263
 Student 2: Fabian Gal
 Student Number : x20434312
 Module: Web Application Development
-Project Title: CA2 Pc World Project
+Project Title: Administrative Data
 
 ---
 
