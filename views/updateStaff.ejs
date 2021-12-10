@@ -32,6 +32,11 @@
         <h5 class="text-center">Edit staff member</h5>
       </div>
     <div class="cell container">
+      <% if(error) { %>
+        <div class="alert alert-danger" role="alert">
+          Error: <%= error %>
+        </div>
+      <% } %>
       <form method="post" action="">
         <div class="container">
           <div class="form-floating mb-3">

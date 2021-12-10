@@ -7,6 +7,7 @@ var connection_details = require("../modules/connection_details")
 router.get('/', function(req, res, next) {
   var storeID = req.body.storeID
   var location = req.body.location
+  var error = req.query.error;
   var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
@@ -15,18 +16,21 @@ router.get('/', function(req, res, next) {
   });
 
   var store = connection.query('SELECT * from store;');
+  var staff = connection.query('SELECT * from staff;');
   console.log(store)
 
   res.render('addStore', {
     title: 'Store',
-    store: store
+    store: store,
+    staff: staff,
+    error: error
   });
 });
 
 router.get('/updateStore', function(req, res, next){
   var storeID = req.query.storeID;
   var location = req.query.location;
-
+  var error = req.query.error;
   res.render("updateStore", {
     title: 'Updated Store',
     storeID: storeID ,
@@ -52,12 +56,20 @@ router.post('/add', function (req, res, next) {
 router.get('/delete', function(req, res, next) {
   var storeID = req.query.storeID
   var location = req.query.location
+  var error = req.query.error;
+  var staff = req.query.staff
   var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
     password: connection_details.password,
     database: connection_details.database
   });
+  var staff = connection.query('SELECT * FROM staff');
+  for(var i=0; i < staff.length; i++){
+    if(storeID == staff[i].storeID){
+      res.redirect("/addStore/?&error=Cannot delete as people work there.")
+    }
+  }
   connection.query("DELETE FROM store WHERE storeID = (?);", [storeID])
   connection.query("DELETE FROM store WHERE location = (?)", [location])
   res.redirect('/addStore')

@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
   var lName = req.body.lName
   var hourlyPay = parseFloat(req.body.hourlyPay)
   var storeID = req.query.storeID
+  var error = req.query.error;
   var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
@@ -18,11 +19,14 @@ router.get('/', function(req, res, next) {
     database: connection_details.database
   });
   var staff = connection.query("SELECT * from staff");
+  var store = connection.query("SELECT * from store");
   console.log(staff);
 
   res.render('staff', {
     title: 'Staff',
-    staff:staff
+    staff:staff,
+    store:store,
+    error: error
   });
 });
 
@@ -37,6 +41,7 @@ router.get('/delete', function(req, res, next) {
   var lName = req.query.lName
   var hourlyPay = parseFloat(req.query.hourlyPay)
   var staffID = req.query.staffID
+  var error = req.quert.error
   var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
@@ -68,12 +73,20 @@ router.post('/add', function(req, res, next) {
 router.get('/updateStaff', function(req, res, next){ //or it can be edit
   var staffID = req.query.staffID
   var staffType = req.query.staffType
+  var error = req.query.error
   var fName = req.query.fName
   var lName = req.query.lName
   var hourlyPay = parseFloat(req.query.hourlyPay)
   var storeID = req.query.storeID
-  //console.log(staff_id);//check the id of the staff name/member
+  var connection = new MySql({
+  host: connection_details.host,
+  user: connection_details.user,
+  password: connection_details.password,
+  database: connection_details.database
+  });
 
+  var staff = connection.query('SELECT * FROM staff WHERE staffID=(?);',[staffID]);//used to get the staffID
+  var store = connection.query('SELECT * FROM store;');//used to get the StoreID
   res.render("updateStaff", { //name of the ejs file
     title: 'Update Staff',
     staffID: staffID,
@@ -81,7 +94,10 @@ router.get('/updateStaff', function(req, res, next){ //or it can be edit
     fName: fName,
     lName: lName,
     hourlyPay: hourlyPay,
-    storeID: storeID
+    storeID: storeID,
+    error: error,
+    store: store,
+    staff: staff
   });
 });
 
