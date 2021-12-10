@@ -3,7 +3,7 @@ var router = express.Router();
 var MySql = require('sync-mysql');
 var connection_details = require("../modules/connection_details")
 
-//
+
 router.get('/', function(req, res, next) {
   var storeID = req.body.storeID
   var location = req.body.location
@@ -47,10 +47,10 @@ router.post('/add', function (req, res, next) {
     password: connection_details.password,
     database: connection_details.database
   });
-  connection.query("INSERT INTO store (storeID, location) VALUES ((?), (?));", [storeID, location]);
+  connection.query("INSERT INTO store (storeID, location) VALUES ((?), (?));", [storeID, location]); //query to insert the users inputs into respective variables.
 
   console.log(req.body.storeID , req.body.location);
-  res.redirect("/addStore");
+  res.redirect("/addStore"); //after adding the addStore page is reloaded.
 })
 
 router.get('/delete', function(req, res, next) {
@@ -64,21 +64,21 @@ router.get('/delete', function(req, res, next) {
     password: connection_details.password,
     database: connection_details.database
   });
-  var staff = connection.query('SELECT * FROM staff');
-  for(var i=0; i < staff.length; i++){
-    if(storeID == staff[i].storeID){
-      res.redirect("/addStore/?&error=Cannot delete as people work there.")
+  var staff = connection.query('SELECT * FROM staff'); //I take everything from the staff table in order to check if a staff member works at a existing store.
+  for(var i=0; i < staff.length; i++){//looks at everything
+    if(storeID == staff[i].storeID){// checks if storeID's match
+      res.redirect("/addStore/?&error=Cannot delete as people work there.") // if a store with staff exists then that store cannot be deleted.
     }
   }
-  connection.query("DELETE FROM store WHERE storeID = (?);", [storeID])
-  connection.query("DELETE FROM store WHERE location = (?)", [location])
+  connection.query("DELETE FROM store WHERE storeID = (?);", [storeID])//deletes storeID
+  connection.query("DELETE FROM store WHERE location = (?)", [location])//Deletes the location
   res.redirect('/addStore')
 })
 
 router.post('/updateStore', function(req, res, next){
   var storeID= req.body.storeID;
   var location = req.body.location;
-  var newStoreID = req.body.newStoreID;
+  var newStoreID = req.body.newStoreID;//takes in the input for updated storeID as were using the storeID variable to get the row thats being edited.
   console.log(storeID,location, newStoreID);
 
   var connection = new MySql({
@@ -88,9 +88,9 @@ router.post('/updateStore', function(req, res, next){
     database: connection_details.database
   })
   console.log(location, storeID);
-  var query_string = "UPDATE store set"
+  var query_string = "UPDATE store set"//used to store the query which will be updated as the if statement goes on
   var params = []
-  if(newStoreID) {
+  if(newStoreID) {//if statement to replace data
     query_string += ' storeID = (?)'
     params.push(newStoreID)
   }
@@ -103,7 +103,7 @@ router.post('/updateStore', function(req, res, next){
   }
   query_string += "WHERE storeID = (?)"
   if(!newStoreID && !location) {
-    res.redirect("/addStore/updateStore?storeID=" + storeID + "&error=You must update some fields")
+    res.redirect("/addStore/updateStore?storeID=" + storeID + "&error=You must update some fields")//error appears if user doesnt update anything
   }
   params.push(storeID)
   console.log("query:" +query_string+ " params: "+params);

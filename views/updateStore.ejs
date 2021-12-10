@@ -34,7 +34,7 @@
     <div class="cell container">
       <form method="post" action="">
         <div class="container">
-          <div class="form-floating mb-3">
+          <div class="form-floating mb-3"><!--Inputs for user to update data -->
             <input type="text" name="newStoreID" class="form-control" id="floatingInput" placeholder="Store ID">
             <label for="storeID">Store ID</label>
             <input type="hidden" value="<%= storeID %>" name="storeID">
@@ -43,7 +43,6 @@
             <input type="text" name="location" class="form-control" id="floatingInput" placeholder="Location">
             <label for="location">Location</label>
         </div>
-        <% console.log(storeID, location) %>
         <center>
         <button class="btn btn-outline-dark"  type="submit">Submit</button>
         </center>

@@ -41,7 +41,7 @@ router.get('/delete', function(req, res, next) {
   var lName = req.query.lName
   var hourlyPay = parseFloat(req.query.hourlyPay)
   var staffID = req.query.staffID
-  var error = req.quert.error
+  var error = req.query.error
   var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
@@ -66,6 +66,7 @@ router.post('/add', function(req, res, next) {
     password: connection_details.password,
     database: connection_details.database
   });
+  //query to add data into database tables.
   connection.query("INSERT INTO staff (staffID, staffType, fName, lName, hourlyPay , storeID) VALUES ((?), (?), (?), (?), (?), (?));", [staffID, staffType, fName, lName, hourlyPay, storeID]);
   res.redirect("/staff");
 })
@@ -87,7 +88,7 @@ router.get('/updateStaff', function(req, res, next){ //or it can be edit
 
   var staff = connection.query('SELECT * FROM staff WHERE staffID=(?);',[staffID]);//used to get the staffID
   var store = connection.query('SELECT * FROM store;');//used to get the StoreID
-  res.render("updateStaff", { //name of the ejs file
+  res.render("updateStaff", {
     title: 'Update Staff',
     staffID: staffID,
     staffType: staffType,
@@ -117,7 +118,7 @@ router.post('/updateStaff', function(req, res, next){
     database: connection_details.database
   });
 
-  var query_string = "UPDATE staff set"
+  var query_string = "UPDATE staff set"//stores update query that will be updated in the if statement
   var params = []
   if(newStaffID) {
     query_string += ' staffID = (?)'

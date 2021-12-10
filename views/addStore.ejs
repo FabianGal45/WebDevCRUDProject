@@ -29,23 +29,23 @@
         <div class="cell container">
           <% if(error) { %>
             <div class="alert alert-danger" role="alert">
-              Error: <%= error %>
+              Error: <%= error %> <!--Error message -->
             </div>
           <% } %>
           <div class="cell-ttle">
             <h5 class="text-center">Add/edit a store</h5>
           </div>
         <form class="" action="addStore/add" method="post">
-          <table class="table">
+          <table class="table"><!-- user input table -->
             <thead>
               <tr>
-                <th scope="col"><label for="storeID">Store ID</label></th>
+                <th scope="col"><label for="storeID">Store ID</label></th> <!-- table heads -->
                 <th scope="col"><label for="location">Location</label></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><input type="number" name="storeID"/></td>
+                <td><input type="number" name="storeID"/></td> <!-- user inputs -->
                 <td><input type="text" name="location"></td>
                 <td><button class="btn btn-outline-dark"  type="submit">Submit</button></td>
               </tr>
@@ -57,7 +57,7 @@
       <div class="cell-ttle">
         <h5 class="text-center">Stores:</h5>
       </div>
-        <% for(var i = 0; i < store.length; i++) { %>
+        <% for(var i = 0; i < store.length; i++) { %> <!-- tables to display data from database -->
           <table class="table">
             <thead>
               <th scope="col">StoreID:</th>
