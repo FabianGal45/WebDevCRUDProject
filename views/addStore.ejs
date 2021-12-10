@@ -25,30 +25,58 @@
         </div>
       </div>
     </nav>
-
-    <h1> Enter new store details. </h1>
-    <form class="" action="addStore/add" method="post">
-      <label for="storeID">Enter a Store ID</label>
-      <input type="number" name="storeID"/>
-      <br>
-      <label for="location">Enter the stores location</label>
-      <input type="text" name="location">
-      <button type="submit" name="button">Submit</button>
-    </form>
-    <% for(var i = 0; i < store.length; i++) { %>
-      <p>Store ID: <%= store[i].storeID %> <p/>
-      <p>Location: <%= store[i].location %> <p/>
-    <form action="/addStore/updateStore" method="get">
-      <input type="hidden" name="storeID" value="<%= store[i].storeID %>"/>
-      <input type="hidden" name="location" value="<% store[i].location %>">
-      <button type="submit">Update Store</button>
-    </form>
-    <form action="/addStore/delete" method="get">
-      <input type="hidden" name="storeID" value="<%= store[i].storeID %>">
-      <input type="hidden" name="location" value="<%= store[i].location %>">
-      <button type="submit">Delete Store</button>
-    </form>
-    <% } %>
+    <div class="col-lg-12 col-md-12">
+        <div class="cell container">
+          <div class="cell-ttle">
+            <h5 class="text-center">Add/edit a store</h5>
+          </div>
+        <form class="" action="addStore/add" method="post">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"><label for="storeID">Store ID</label></th>
+                <th scope="col"><label for="location">Location</label></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="number" name="storeID"/></td>
+                <td><input type="text" name="location"></td>
+                <td><button class="btn btn-outline-dark"  type="submit">Submit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+    <br>
+    <div class="col-lg-12 col-md-12">
+      <div class="cell-ttle">
+        <h5 class="text-center">Stores:</h5>
+      </div>
+        <% for(var i = 0; i < store.length; i++) { %>
+          <table class="table">
+            <thead>
+              <th scope="col">StoreID:</th>
+              <th scope="col">Location:</th>
+            </thead>
+            <tbody>
+              <td><%= store[i].storeID %></td>
+              <td><%= store[i].location %></td>
+              <form action="/addStore/updateStore" method="get">
+                <td><button class="btn btn-outline-dark" type="submit">Update</button></td>
+                <input type="hidden" name="storeID" value="<%= store[i].storeID %>"/>
+                <input type="hidden" name="location" value="<% store[i].location %>">
+              </form>
+              <form action="/addStore/delete" method="get">
+                <td><button class="btn btn-outline-dark" type="submit">Delete</button></td>
+                <input type="hidden" name="storeID" value="<%= store[i].storeID %>">
+                <input type="hidden" name="location" value="<%= store[i].location %>">
+              </form>
+            </tbody>
+          </table>
+        <% } %>
+        </div>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>
