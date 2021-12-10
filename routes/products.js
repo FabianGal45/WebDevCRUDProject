@@ -34,7 +34,6 @@ router.get('/update', function(req, res, next){ //or it can be edit
 //post = take in data
 //res is what we want when comming out
 router.post('/add', function(req, res, next){ 
-  var itemID = req.body.item_id;
   var itemName = req.body.item_name;
   var itemCategory = req.body.item_category;
   var itemStock = req.body.item_stock;
@@ -47,15 +46,7 @@ router.post('/add', function(req, res, next){
     database: connection_details.database
   });
 
-  //checks to see if the ID already exists and throws an error if it does.
-  var products = connection.query('SELECT * FROM products;');
-  for(var i=0; i < products.length; i++){
-    if(itemID == products[i].itemID){
-      res.redirect("/products/?&error=You cannot use the same ID")
-    } 
-  }
-
-  connection.query('INSERT INTO products(itemID, itemName, category, stock, itemDescription, price) VALUES ((?), (?), (?), (?), (?), (?));', [itemID, itemName, itemCategory, itemStock, itemDescription, itemPrice]);
+  connection.query('INSERT INTO products(itemName, category, stock, itemDescription, price) VALUES ((?), (?), (?), (?), (?));', [itemName, itemCategory, itemStock, itemDescription, itemPrice]);
 
   console.log(req.body.item_name);  
   res.redirect("/products");
