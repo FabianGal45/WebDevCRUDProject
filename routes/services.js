@@ -25,10 +25,23 @@ router.get('/', function(req, res, next) {
 router.get('/update', function(req, res, next){ //or it can be edit
   var serviceID = req.query.serviceID;
   var error = req.query.error
+    var connection = new MySql({
+    host: connection_details.host,
+    user: connection_details.user,
+    password: connection_details.password,
+    database: connection_details.database
+  });
+  var services = connection.query('SELECT * FROM services WHERE serviceID=(?);',[serviceID]);//used to get the service information
+  var products = connection.query('SELECT * FROM products;');//used to get the product id
+  var originalProductID = connection.query('SELECT productID FROM services WHERE serviceID=(?);',[serviceID]); 
+  console.log(originalProductID[0].productID);
   res.render("update_services", { //name of the ejs file
     title: 'Update Services',
     serviceID: serviceID,
-    error: error
+    error: error,
+    services: services,
+    products: products,
+    originalProductID: originalProductID
   });
 });
 
@@ -68,47 +81,55 @@ router.post('/delete', function(req, res, next){
 
 router.post('/update', function(req, res, next){
   var serviceID = req.body.serviceID;
-  var newServiceID = req.body.new_serviceID
   var serviceName = req.body.serviceName;
   var customerName = req.body.customerName;
   var productID = req.body.productID;
   var serviceDescription = req.body.serviceDescription;
+  var updatedProductID=false;
   var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
     password: connection_details.password,
     database: connection_details.database
   });
-  
+  console.log("ServiceID >>>> "+serviceID);
+  var originalProductID = connection.query('SELECT productID FROM services WHERE serviceID=(?);',[serviceID]);
+  console.log("Original product ID >>>> "+originalProductID[0]);
+
   var query_string = "UPDATE services set"
   var params = []
-  if(newServiceID) {
-    query_string += ' serviceID = (?)'
-    params.push(newServiceID)
-  }
+
   if(serviceName) {
-    if(newServiceID) {
-      query_string +=", "
-    }
     query_string += ' serviceName = (?) '
     params.push(serviceName)
   }
   if(customerName) {
-    if(newServiceID || serviceName) {
+    if(serviceName) {
       query_string +=", "
     }
     query_string += ' customerName = (?) '
     params.push(customerName)
   }
-  if(productID) {
-    if(newServiceID || serviceName || customerName) {
+  //check to see if the input in the productID input box is the same with the service it is trying to change.
+  // if(productID != originalProductID[i].productID){
+  //   console.log("BOOOOOOOOM THERE IS A MATCH - NOthing has been updated");
+  //   updatedProductID=false;
+  // }
+
+  if(originalProductID!=productID){
+    //the product Id has been updated/changed
+    console.log("The product ID has been changed");
+    updatedProductID=true;
+  }
+  if(updatedProductID) {
+    if(serviceName || customerName) {
       query_string +=", "
     }
     query_string += ' productID = (?) '
     params.push(productID)
   }
   if(serviceDescription) {
-    if(newServiceID || serviceName || customerName || productID) {
+    if(serviceName || customerName || productID) {
       query_string +=", "
     }
     query_string += ' serviceDescription = (?) '
@@ -118,8 +139,8 @@ router.post('/update', function(req, res, next){
   params.push(serviceID)
 
   //if nothing has been inserted inthe fieleds it will throw an error
-  if(!newServiceID && !serviceName && !customerName && !productID && !serviceDescription) {
-    res.redirect("/services/update?serviceID=" + serviceID + "&error=You must update some fields")
+  if(!serviceName && !customerName && updatedProductID && !serviceDescription) {
+    res.redirect("/services/update?serviceID=" + serviceID + "&error=It doesn't seem like you changed anything.")
   }
 
   console.log(">>> Query "+ query_string);

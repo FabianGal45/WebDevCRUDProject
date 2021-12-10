@@ -126,7 +126,7 @@ router.post('/update', function(req, res, next){
 
   //if nothing has been inserted inthe fieleds it will throw an error
   if(!product_name && !itemCategory && !itemStock && !itemDescription  && !itemPrice) {
-    res.redirect("/products/update?product_id=" + product_id + "&error=You must update some fields")
+    res.redirect("/products/update?product_id=" + product_id + "&error=It doesn't seem like you changed anything. You must update at least one field.")
   }
 
   params.push(product_id)
