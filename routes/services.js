@@ -34,7 +34,6 @@ router.get('/update', function(req, res, next){ //or it can be edit
 //post = take in data
 //res is what we want when comming out
 router.post('/add', function(req, res, next){ 
-  var serviceID = req.body.serviceID;
   var serviceName = req.body.serviceName;
   var customerName = req.body.customerName;
   var productID = req.body.productID;
@@ -46,15 +45,7 @@ router.post('/add', function(req, res, next){
     database: connection_details.database
   });
 
-  //checks to see if the ID already exists and throws an error if it does.
-  var services = connection.query('SELECT * FROM services;');
-  for(var i=0; i < services.length; i++){
-    if(serviceID == services[i].serviceID){
-      res.redirect("/services/?&error=You cannot use the same ID")
-    } 
-  }
-
-  connection.query('INSERT INTO services(serviceID, serviceName, customerName, productID, serviceDescription) VALUES ((?), (?), (?), (?), (?));', [serviceID, serviceName, customerName, productID, serviceDescription]);
+  connection.query('INSERT INTO services(serviceName, customerName, productID, serviceDescription) VALUES ((?), (?), (?), (?));', [serviceName, customerName, productID, serviceDescription]);
 
   console.log(req.body.item_name);  
   res.redirect("/services");
