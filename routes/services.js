@@ -13,10 +13,12 @@ router.get('/', function(req, res, next) {
     database: connection_details.database
   });
   var services = connection.query('SELECT * FROM services;');
+  var products = connection.query('SELECT * FROM products;');
   res.render('services', {
     title: 'Services',
     services: services,
-    error: error
+    error: error,
+    products: products
   });
 });
 
@@ -118,14 +120,6 @@ router.post('/update', function(req, res, next){
   //if nothing has been inserted inthe fieleds it will throw an error
   if(!newServiceID && !serviceName && !customerName && !productID && !serviceDescription) {
     res.redirect("/services/update?serviceID=" + serviceID + "&error=You must update some fields")
-  }
-  
-  //checks to see if the ID already exists and throws an error if it does.
-  var services = connection.query('SELECT * FROM services;');
-  for(var i=0; i < services.length; i++){
-    if(newServiceID == services[i].serviceID){
-      res.redirect("/services/update?serviceID=" + serviceID + "&error=You cannot use the same ID")
-    } 
   }
 
   console.log(">>> Query "+ query_string);

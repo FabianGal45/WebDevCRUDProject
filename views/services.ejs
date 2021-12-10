@@ -35,9 +35,15 @@
       <div class="cell-content">
         <% if(error) { %>
           <div class="alert alert-danger" role="alert">
-            <p class="error">Error: <%= error %></p>
+            Error: <%= error %>
           </div>
         <% } %>
+        <% if(products.length == 0){ %>
+          <div class="alert alert-warning" role="alert">
+            There are no products that can be used. Please add a product first.
+          </div>
+          <% console.log("asdasdasdhlashdlkajhsdlkjashdlkajshldkjashlkj") %> 
+        <% } %>  
         <form class="" action="/services/add" method="post">
           <div class="row">
             <div class="col-lg-10 col-md-12">
@@ -52,7 +58,12 @@
                 </div>
                 <div class="col-lg col-md-12">
                   <label for="productID" class="form-label">Related product: </label>
-                  <input type="number" name="productID" class="form-control" required/>
+                  <!-- <input type="number" name="productID" class="form-control" required/> -->
+                  <select class="form-select" name="productID" aria-label="Default select example" required>
+                    <% for(var i=0; i<products.length; i++){ %> 
+                      <option selected value="<%= products[i].itemID %> "><%= products[i].itemID %> (<%= products[i].itemName %>) </option>
+                    <% } %> 
+                  </select>
                 </div>
                 <div class="col-lg col-md-12">
                   <label for="serviceDescription" class="form-label">Description: </label>
