@@ -4,11 +4,11 @@
 var express = require('express');
 var router = express.Router();
 var MySql = require('sync-mysql');
-var connection_details = require("../modules/connection_details")
+var connection_details = require("../modules/connection_details");
 
 //get = show data
 router.get('/', function(req, res, next) {
-  var error = req.query.error 
+  var error = req.query.error;
   var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/update', function(req, res, next){
   var serviceID = req.query.serviceID;
-  var error = req.query.error
+  var error = req.query.error;
     var connection = new MySql({
     host: connection_details.host,
     user: connection_details.user,
@@ -91,8 +91,8 @@ router.post('/update', function(req, res, next){
   });
   // Creates new variable that will store the current product id that the service has to check if the has updated it
   var originalProductID = connection.query('SELECT productID FROM services WHERE serviceID=(?);',[serviceID]);
-  var query_string = "UPDATE services set"
-  var params = []
+  var query_string = "UPDATE services set";
+  var params = [];
 
   if(serviceName) {
     query_string += ' serviceName = (?) '
@@ -103,7 +103,7 @@ router.post('/update', function(req, res, next){
       query_string +=", "
     }
     query_string += ' customerName = (?) '
-    params.push(customerName)
+    params.push(customerName);
   }
   if(originalProductID!=productID){
     // The product Id has been updated/changed
@@ -114,26 +114,26 @@ router.post('/update', function(req, res, next){
       query_string +=", "
     }
     query_string += ' productID = (?) '
-    params.push(productID)
+    params.push(productID);
   }
   if(serviceDescription) {
     if(serviceName || customerName || productID) {
       query_string +=", "
     }
     query_string += ' serviceDescription = (?) '
-    params.push(serviceDescription)
+    params.push(serviceDescription);
   }
   query_string += " WHERE serviceID = (?)"
-  params.push(serviceID)
+  params.push(serviceID);
 
   //if nothing has been inserted inthe fieleds it will throw an error
   if(!serviceName && !customerName && updatedProductID && !serviceDescription) {
-    res.redirect("/services/update?serviceID=" + serviceID + "&error=It doesn't seem like you changed anything. You must update at least one field.")
+    res.redirect("/services/update?serviceID=" + serviceID + "&error=It doesn't seem like you changed anything. You must update at least one field.");
   }
   // Logs used to troubleshoot the query
   // console.log(">>> Query "+ query_string);
   // console.log(">>> Params "+ params)
-  connection.query(query_string, params)
+  connection.query(query_string, params);
   res.redirect("/services");
 });
 

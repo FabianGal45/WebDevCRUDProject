@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var MySql = require('sync-mysql');
-var connection_details = require("../modules/connection_details")
+var connection_details = require("../modules/connection_details");
 
 // Displays and creates the main /products route
 router.get('/', function(req, res, next) {
@@ -94,7 +94,7 @@ router.post('/update', function(req, res, next){
   var params = []
   if(product_name) {
     query_string += ' itemName = (?) '
-    params.push(product_name)
+    params.push(product_name);
   }
   if(itemCategory) {
     if(product_name) {
@@ -108,35 +108,35 @@ router.post('/update', function(req, res, next){
       query_string +=", "
     }
     query_string += ' stock = (?) '
-    params.push(itemStock)
+    params.push(itemStock);
   }
   if(itemDescription) {
     if(product_name || itemCategory || itemStock) {
       query_string +=", "
     }
     query_string += ' itemDescription = (?) '
-    params.push(itemDescription)
+    params.push(itemDescription);
   }
   if(itemPrice) {
     if(product_name || itemCategory || itemStock|| itemDescription) {
       query_string +=", "
     }
     query_string += ' price = (?) '
-    params.push(itemPrice)
+    params.push(itemPrice);
   }
   query_string += " WHERE itemID = (?)"
 
   //if nothing has been inserted inthe fieleds it will throw an error
   if(!product_name && !itemCategory && !itemStock && !itemDescription  && !itemPrice) {
-    res.redirect("/products/update?product_id=" + product_id + "&error=It doesn't seem like you changed anything. You must update at least one field.")
+    res.redirect("/products/update?product_id=" + product_id + "&error=It doesn't seem like you changed anything. You must update at least one field.");
   }
 
-  params.push(product_id)
+  params.push(product_id);
 
   // Logs used to troubleshoot the app
   // console.log(">>> Query "+ query_string);
   // console.log(">>> Params "+ params)
-  connection.query(query_string, params)
+  connection.query(query_string, params);
   res.redirect("/products");
 });
 
