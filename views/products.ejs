@@ -81,7 +81,7 @@
         </div>
         <div class="cell-content container">
           <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-10 col-md-12 col-sm12">
               <table class="table table-borderless">
                 <tr>
                   <th>ID</th>
@@ -101,7 +101,7 @@
                 </tr>
               </table>
             </div>
-            <div class="col-lg-2 d-grid gap-2 d-md-flex justify-content-md-end align-self-center">
+            <div class="col-lg-2 col-md-12 col-sm-12 d-grid gap-2 d-md-flex justify-content-md-end align-self-center">
               <form method="post" action="/products/delete">
                 <input type="hidden" value="<%= products[i].itemID  %> " name="prduct_id">
                 <button type="submit" class="btn btn-dark">Delete</button>
