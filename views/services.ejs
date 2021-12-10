@@ -1,3 +1,6 @@
+<!-- File Edited by Fabian.
+References class notes and exercises -->
+
 <!DOCTYPE html>
 <htmhtml lang="en">
   <head>
@@ -26,8 +29,9 @@
         </div>
       </div>
     </nav>
-
+    <!-- Title of the page -->
     <h1 class="text-center main-title"><%= title %></h1>
+    <!-- The update cell -->
     <div class="cell container">
       <div class="cell-ttle">
         <h5 class="text-center">Add a Service to the list</h5>
@@ -38,11 +42,11 @@
             Error: <%= error %>
           </div>
         <% } %>
+        <!-- Checks to see if there are are any products in the database and if not will display a warning message -->
         <% if(products.length == 0){ %>
           <div class="alert alert-warning" role="alert">
             There are no products that can be used. Please add a product first.
           </div>
-          <% console.log("asdasdasdhlashdlkajhsdlkjashdlkajshldkjashlkj") %> 
         <% } %>  
         <form class="" action="/services/add" method="post">
           <div class="row">
@@ -58,7 +62,7 @@
                 </div>
                 <div class="col-lg col-md-12">
                   <label for="productID" class="form-label">Related product: </label>
-                  <!-- <input type="number" name="productID" class="form-control" required/> -->
+                  <!-- Creates the dropdown menu with every product in the database -->
                   <select class="form-select" name="productID" aria-label="Default select example" required>
                     <% for(var i=0; i<products.length; i++){ %> 
                       <option selected value="<%= products[i].itemID %> "><%= products[i].itemID %> (<%= products[i].itemName %>) </option>
@@ -79,12 +83,9 @@
       </div>
     </div>
 
-
+    <!-- Items will be displayed in here -->
     <% for( var i = 0; i < services.length; i++ ) { %>
       <div class="cell container">
-        <div class="cell-ttle">
-          <!-- <h5 class="text-center">Add a product to the list</h5> -->
-        </div>
         <div class="cell-content container">
           <div class="row">
             <div class="col-lg-10 col-md-12 col-sm12">
@@ -119,7 +120,7 @@
         </div>  
       </div> 
     <% } %>
-
+    <!-- Bootstrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>
