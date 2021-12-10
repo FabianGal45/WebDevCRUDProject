@@ -105,7 +105,7 @@ router.post('/update', function(req, res, next){
     query_string += ' customerName = (?) '
     params.push(customerName);
   }
-  if(originalProductID!=productID){
+  if(originalProductID[0].productID!=productID){
     // The product Id has been updated/changed
     updatedProductID=true;
   }
@@ -117,7 +117,7 @@ router.post('/update', function(req, res, next){
     params.push(productID);
   }
   if(serviceDescription) {
-    if(serviceName || customerName || productID) {
+    if(serviceName || customerName || updatedProductID) {
       query_string +=", "
     }
     query_string += ' serviceDescription = (?) '
@@ -127,7 +127,7 @@ router.post('/update', function(req, res, next){
   params.push(serviceID);
 
   //if nothing has been inserted inthe fieleds it will throw an error
-  if(!serviceName && !customerName && updatedProductID && !serviceDescription) {
+  if(!serviceName && !customerName && !updatedProductID && !serviceDescription) {
     res.redirect("/services/update?serviceID=" + serviceID + "&error=It doesn't seem like you changed anything. You must update at least one field.");
   }
   // Logs used to troubleshoot the query
